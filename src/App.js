@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
+import {  } from 'react'
 import './App.css';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
@@ -29,7 +30,7 @@ class App extends Component {
       {
         theme => (
           <div className={`app-body ${theme}`}>
-          <Router>
+          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
               <Route path="/" exact><Redirect to="/chat" /></Route>
               <PrivateRoute path="/chat" component={Home}  />
