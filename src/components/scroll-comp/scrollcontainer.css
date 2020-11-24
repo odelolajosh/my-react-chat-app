@@ -1,0 +1,24 @@
+
+
+.scrollBox {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+
+    position: relative;
+}
+
+.scrollBox .scrollBox--loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
+    position: absolute;
+    width: 100%;
+    transition: all ease-in-out .3s;
+}
+
+.scrollBox .scrollBox--content {
+    min-height: calc(100% + 10px);
+    padding-bottom: calc(100vh / 3);
+}

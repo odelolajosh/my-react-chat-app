@@ -1,3 +1,30 @@
+:root {
+  --base-color: #938af3;
+  --base-color-dark: #4339b3;
+  --base-color-fade: rgba(147, 138, 243, .38);
+
+  /* Contrast color */
+  --base-contrast: rgba(171, 171, 173, 0.2);
+  --base-contrast-op2: rgba(171, 171, 173, 0.4);
+
+  /* Dark Color */
+  --base-dark: #302f38; /* #282733 */
+  /* --base-contrast: #ffffff11; */
+  --base-contrast-mid: #ffffff28;
+  --base-contrast-fall: #27272b;
+  --base-contrast-fade: #ffffff07;
+  --base-white: #ababad;
+  --base-grey: #77777e;
+  --base-red: #d6471b;
+  --base-orange: #ff6347;
+
+  /* Text color */
+  --text-black: #55555b;
+  --text-white: #ababad;
+
+  --top-bar-height: 56px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +37,24 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background: var(--base-contrast-fade);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--base-contrast-mid);
+  border-radius: 50px;
+}
+
+
+.logo-kit img {
+  width: 30px;
+  margin-right: 10px;
 }

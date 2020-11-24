@@ -1,0 +1,12 @@
+
+
+.auth-profile--bx {
+    padding: .5rem;
+}
+
+.auth-profile-img--bx {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+}

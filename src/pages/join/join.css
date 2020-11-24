@@ -1,0 +1,57 @@
+
+
+#join-bx {
+    padding-top: 13%;
+}
+
+#join-bx form {
+    margin: auto;
+    width: 300px;
+    max-width: calc(100vw- 10px);
+}
+
+#join-bx form h2 {
+    color: white;
+    text-align: center;
+    font-weight: normal;
+    font-size: 32px;
+}
+
+#join-bx form input {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    background-color: var(--base-contrast);
+    border: none;
+    outline: none;
+    margin-bottom: 15px;
+    color: white;
+    font-size: 15px;
+    transition: ease-in-out 300ms background;
+}
+
+#join-bx form input:focus,
+#join-bx form input:hover {
+    background-color: var(--base-contrast-mid);
+}
+
+#join-bx form div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#join-bx form div button {
+    background-color: var(--base-color);
+    outline: none;
+    border: none;
+    padding: .75rem 2rem;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#join-bx form div button:disabled {
+    color: rgba(255, 255, 255, 0.397);
+    cursor: default;
+}

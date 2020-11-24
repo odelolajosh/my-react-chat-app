@@ -3,10 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux'
+import store from './services/store';
+import ThemeContext from './contexts/themeContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <ThemeContext.Provider value={'day'}>
+        <App />
+      </ThemeContext.Provider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

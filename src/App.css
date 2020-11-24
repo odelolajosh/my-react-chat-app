@@ -1,38 +1,35 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Quicksand:wght@400;500&display=swap');
+
+@font-face {
+  font-family: opens;
+  src: url(res/opens.ttf);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+  font-family: basier;
+  src: url(res/basiercircle.otf);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+* {
+  font-family: 'Quicksan', 'Josefin Sans', 'opens', basier;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+body .app-body {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  position: relative;
+  scroll-behavior: smooth;
+  margin: 0;
 }
 
-.App-link {
-  color: #61dafb;
+body .app-body.day {
+  background-color: #ffffff;
+  color: var(--text-dark);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body .app-body.night {
+  background-color: var(--base-dark);
+  color: var(--text-white);
 }

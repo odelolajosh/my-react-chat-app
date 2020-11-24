@@ -1,0 +1,135 @@
+
+
+.form-page {
+    padding-top: 10%;
+}
+
+.form-page.day {
+    color: var(--text-black);
+}
+
+.form-page.night {
+    color: var(--text-white);
+}
+
+@media screen and (max-width: 800px) {
+    .form-page {
+        padding-top: 13%;
+    }
+}
+
+.form-page form {
+    margin: auto;
+    width: 350px;
+    max-width: calc(100vw - 20px);
+}
+
+.form-page form h2,
+.form-page form h3 {
+    text-align: center;
+    font-weight: normal;
+    font-size: 32px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-page form h2 img {
+    width: 70px;
+}
+
+.form-page form h3 {
+    font-size: 18px;
+    margin-bottom: 2rem;
+}
+
+.form-page form input {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    color: var(--text-black);
+    background-color: var(--base-contrast);
+    border: none;
+    border-radius: 2px;
+    outline: none;
+    margin-bottom: 15px;
+    font-size: 15px;
+    transition: ease-in-out 300ms background;
+}
+
+.form-page.night form input {
+    color: var(--text-white);
+}
+
+
+.form-page form input:focus,
+.form-page form input:hover {
+    background-color: var(--base-contrast-op2);
+}
+
+.form-page form div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.form-page form div button {
+    background-color: var(--base-color);
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px 0 var(--base-color-fade);
+    padding: .65rem 2rem;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.form-page form div button .spinner {
+    margin-left: 10px;
+}
+
+.form-page form div button:disabled {
+    color: rgba(255, 255, 255, .34);
+    cursor: default;
+}
+
+.form-page .redirect {
+    margin: .5rem 0;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.form-page .redirect a {
+    text-decoration: none;
+    color: var(--base-orange);
+    transition: ease 300ms all;
+    margin-left: 10px;
+}
+
+.form-page .redirect a:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+.form-page .error {
+    color: var(--base-red);
+    margin: 1rem 0;
+    animation-name: keyframes1;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(.71,.55,.62,1.57);
+    animation-duration: 1s;
+}
+
+@keyframes keyframes1 {
+    0% {
+        opacity: 0;
+        transform: scaleX(.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
