@@ -9,7 +9,7 @@ class ChatSocketServer {
     createSocketConnection(userId) {
         // io.connect('http://localhost:4001', { query: `userId=${userId}` })
         try {
-            this.socket = io.connect('http://localhost:4001', { query: `userId=${userId}` })
+            this.socket = io.connect(' https://my-chat-app-server-0707.herokuapp.com', { query: `userId=${userId}` })
         } catch(error) {
             throw new Error('Something went wrong. We can\'t connect to server')
         }

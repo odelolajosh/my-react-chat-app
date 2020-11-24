@@ -3,7 +3,8 @@ import AuthHelper from "./AuthHelper";
 import ErrorHandler from "./ErrorHandler";
 
 class ChatHttpServer {
-    BASE_URL = "http://localhost:4001/mychatapp/v1/api";
+    // BASE_URL = "http://localhost:4001/mychatapp/v1/api";
+    BASE_URL = "https://my-chat-app-server-0707.herokuapp.com/mychatapp/v1/api/";
     REQUEST_OPTIONS = {
         method: 'GET',
         mode: 'cors',
