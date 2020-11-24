@@ -46,7 +46,7 @@
     display: block;
     width: 100%;
     padding: 10px 14px;
-    color: var(--text-black);
+    color: var(--text-white);
     background-color: var(--base-contrast);
     border: none;
     border-radius: 2px;
