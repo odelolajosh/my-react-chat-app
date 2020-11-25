@@ -8,8 +8,9 @@ class ChatSocketServer {
     // connecting to Socket server
     createSocketConnection(userId) {
         // io.connect('http://localhost:4001', { query: `userId=${userId}` })
+        const url = 'http://localhost:4001'
         try {
-            this.socket = io.connect('http://localhost:4001', { query: `userId=${userId}` })
+            this.socket = io.connect(url, { query: `userId=${userId}` })
         } catch(error) {
             throw new Error('Something went wrong. We can\'t connect to server')
         }
