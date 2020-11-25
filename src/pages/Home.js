@@ -20,7 +20,7 @@ class Home extends React.Component {
         this.state = {
             isMobileViewPort: false,
             toggleValue: false,
-            windowWidth: window.innerWidth,
+            windowWidth: 0,
             // chat
             isLoading: true,
             selectedUser: null,
@@ -34,14 +34,16 @@ class Home extends React.Component {
         this.handleViewPortResize();
         window.addEventListener('DOMContentLoaded onLoad', this.handleViewPortResize);
         window.addEventListener('resize', this.handleViewPortResize);
+        this.setState({ toggleValue: true })
 
         this.createSocketConnection();
     }
 
     componentWillUnmount() {
+        this.handleViewPortResize();
         window.removeEventListener('DOMContentLoaded', this.handleViewPortResize);
         window.removeEventListener('resize', this.handleViewPortResize);
-        window.removeEventListener('click', this.handleCloseSidebar)
+        window.removeEventListener('click', this.handleCloseSidebar);
     }
 
     componentDidUpdate(prevProps) {
@@ -72,8 +74,8 @@ class Home extends React.Component {
                 this.setState({ isMobileViewPort: false })
                 window.removeEventListener('click', this.handleCloseSidebar)
             } else {
-                this.setState({ isMobileViewPort: true, toggleValue: true })
-                window.addEventListener('click', this.handleCloseSidebar)
+                this.setState({ isMobileViewPort: true, toggleValue: false })
+                // window.addEventListener('click', this.handleCloseSidebar)
             }
             this.setState({ windowWidth: width })
         }
