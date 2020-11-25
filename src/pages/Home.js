@@ -20,6 +20,7 @@ class Home extends React.Component {
         this.state = {
             isMobileViewPort: false,
             toggleValue: false,
+            windowWidth: window.innerWidth,
             // chat
             isLoading: true,
             selectedUser: null,
@@ -65,12 +66,16 @@ class Home extends React.Component {
     }
 
     handleViewPortResize = () => {
-        if (window.innerWidth > 1200) {
-            this.setState({ isMobileViewPort: false })
-            window.removeEventListener('click', this.handleCloseSidebar)
-        } else {
-            this.setState({ isMobileViewPort: true, toggleValue: true })
-            window.addEventListener('click', this.handleCloseSidebar)
+        const width = window.innerWidth;
+        if (this.state.windowWidth !== width) {
+            if (width > 1200) {
+                this.setState({ isMobileViewPort: false })
+                window.removeEventListener('click', this.handleCloseSidebar)
+            } else {
+                this.setState({ isMobileViewPort: true, toggleValue: true })
+                window.addEventListener('click', this.handleCloseSidebar)
+            }
+            this.setState({ windowWidth: width })
         }
     }
 
