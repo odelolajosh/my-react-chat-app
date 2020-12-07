@@ -62,8 +62,7 @@
     align-items: center;
 }
 
-.spinner-page .spinner span {
-    width: 10px;
-    height: 10px;
-    margin: 5px;
+.spinner-page .spinner {
+    width: 40px;
+    height: 40px;
 }

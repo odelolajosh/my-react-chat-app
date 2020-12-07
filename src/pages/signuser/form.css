@@ -4,14 +4,6 @@
     padding-top: 10%;
 }
 
-.form-page.day {
-    color: var(--text-black);
-}
-
-.form-page.night {
-    color: var(--text-white);
-}
-
 @media screen and (max-width: 800px) {
     .form-page {
         padding-top: 13%;
@@ -80,7 +72,7 @@
     box-shadow: 0 3px 6px 0 var(--base-color-fade);
     padding: .65rem 2rem;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -116,6 +108,7 @@
 
 .form-page .error {
     color: var(--base-red);
+    text-transform: capitalize;
     margin: 1rem 0;
     animation-name: keyframes1;
     animation-iteration-count: 1;

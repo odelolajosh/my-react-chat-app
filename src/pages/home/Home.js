@@ -1,16 +1,18 @@
 import React from 'react';
-import ChatList from '../components/chatlist/ChatList';
-import noUserSelected from '../res/choiceSelect.svg';
-import '../styles/home.css';
-import ChatRoom from './chat/ChatRoom';
-import ChatSocketServer from '../helpers/ChatSocketServer';
+import ChatList from '../../components/chatlist/ChatList';
+import noUserSelected from '../../res/select_a_user.svg';
+import './home.css';
+import ChatRoom from '../chat/ChatRoom';
+import ChatSocketServer from '../../helpers/ChatSocketServer';
 import { connect } from 'react-redux';
-import { bars } from '../res/icon';
-import logo from '../res/logo.svg';
-import ErrorFullPage from '../components/error';
-import SpinnerFullPage from '../components/spinner';
-import ChatHttpServer from '../helpers/ChatHttpServer';
-import AuthHelper from '../helpers/AuthHelper';
+import { leftCaret } from '../../res/icon';
+import ErrorFullPage from '../../components/error';
+import SpinnerFullPage from '../../components/spinner';
+import ChatHttpServer from '../../helpers/ChatHttpServer';
+import AuthHelper from '../../helpers/AuthHelper';
+import noWifi from '../../res/no-wifi.svg';
+import ThemeContext from '../../contexts/themeContext';
+import LogoKit from '../../components/LogoKit';
 
 
 class Home extends React.Component {
@@ -21,6 +23,7 @@ class Home extends React.Component {
             isMobileViewPort: false,
             toggleValue: false,
             windowWidth: 0,
+            theme: null,
             // chat
             isLoading: true,
             selectedUser: null,
@@ -57,12 +60,13 @@ class Home extends React.Component {
         if (userId) {
             try {
                 ChatSocketServer.createSocketConnection(userId);
-                this.setState({ isLoading: false })
 
                 ChatSocketServer.receiveTypingMessage();
                 ChatSocketServer.eventEmitter.on('typing-message-response', this.addTypingUser)
             } catch(err) {
-                this.setState({ isLoading: false, error: err.message })
+                this.setState({ error: err.message })
+            } finally {
+                this.setState({ isLoading: false })
             }
         }
     }
@@ -139,9 +143,10 @@ class Home extends React.Component {
         if (this.props.error || this.state.error) {
             const { userId, token } = AuthHelper.getAuthValue();
             const errorAction = {
-                onAction: () => this.props.error ? (
+                onAction: () => this.props.error || this.state.error ? (
                         this.props.checkUserToken(userId, token)
-                    ) : ( this.createSocketConnection() )
+                    ) : ( this.createSocketConnection() ),
+                templateImage: noWifi
             }
             return <ErrorFullPage err={this.props.error} { ...errorAction }  />
         }
@@ -154,24 +159,24 @@ class Home extends React.Component {
             switchToggle: this.switchToggleValue
         }
         return (
-            <main className="home-page">
-                <ChatList sidebarRef={this.sidebarElem} typing={this.state.typing} updateSelectedUser={this.updateSelectedUser} { ...responsiveKit }></ChatList>
-                <div className="chat-pane">
-                    <div className="top-bar">
-                        { responsiveKit.isMobileViewPort ? <span className="toggle-bar" onClick={responsiveKit.switchToggle}>{ bars }</span> : <></> }
-                        <div>
-                            <span>{ this.state.selectedUser ? this.state.selectedUser.username : <span className="logo-kit"><img src={logo} alt="logo" /><span>YouChat</span></span> }</span>
-                        </div>
-                    </div>
-                    {
-                        this.state.selectedUser ? (
-                            <ChatRoom selectedUser={this.state.selectedUser} typing={this.state.typing} { ...responsiveKit } ></ChatRoom>
-                        ) : (
-                            this.renderNoUserSelectedUI()
-                        )
-                    }
-                </div>
-            </main>
+            <ThemeContext.Consumer>
+                {
+                    ({ theme }) => (
+                        <main className="home-page">
+                            <ChatList sidebarRef={this.sidebarElem} typing={this.state.typing} updateSelectedUser={this.updateSelectedUser} { ...responsiveKit }></ChatList>
+                            <div className="chat-pane">
+                                <div className="top-bar" style={{ background: theme.backgroundColor, color: theme.textColor, fill: theme.textColor, boxShadow: `0 3px 5px ${theme.contrastColorFade}` }}>
+                                    { responsiveKit.isMobileViewPort ? <span className="toggle-bar" onClick={responsiveKit.switchToggle}>{ leftCaret }</span> : <></> }
+                                    <div>
+                                        <span>{ this.state.selectedUser ? this.state.selectedUser.username : <LogoKit /> }</span>
+                                    </div>
+                                </div>
+                                <ChatRoom selectedUser={this.state.selectedUser} typing={this.state.typing} { ...responsiveKit } ></ChatRoom>
+                            </div>
+                        </main>
+                    )
+                }
+            </ThemeContext.Consumer>
         )
     }
 }

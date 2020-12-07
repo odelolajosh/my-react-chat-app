@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { emoji, plane } from '../../res/icon';
 import "./chatroom.css";
 import { connect } from 'react-redux';
 import ChatHttpServer from '../../helpers/ChatHttpServer';
 import ChatSocketServer from '../../helpers/ChatSocketServer';
-import noUserSelected from '../../res/choiceSelect.svg';
+import noUserSelected from '../../res/select_a_user.svg';
 import startConversation from '../../res/startConversation.svg';
 import SpinnerFullPage from '../../components/spinner';
 import ReactEmoji from 'react-emoji';
@@ -13,6 +13,7 @@ import { datesAreOnSameDay } from '../../helpers/dateHelper';
 
 import soundFile from '../../res/sound/doneforyou.mp3';
 import SoundHelper from '../../helpers/SoundHelper';
+import ThemeContext from '../../contexts/themeContext';
 
 class ChatRoom extends React.Component {
     constructor(props) {
@@ -21,13 +22,15 @@ class ChatRoom extends React.Component {
         this.messageContentBox = null;
         this.notifySound = new SoundHelper({ asset: soundFile })
         this.state = {
-            messageLoading: true,
+            messageLoading: false,
             messages: [],
             selectedUser: null,
             //
             page: null,
             limit: 10,
-            totalPages: null
+            totalPages: null,
+            //
+            messageInput: ""
         }
     }
 
@@ -35,7 +38,6 @@ class ChatRoom extends React.Component {
         if (prevState.selectedUser === null || prevState.selectedUser._id !== nextProps.selectedUser._id) {
             return {
                 selectedUser: nextProps.selectedUser,
-                messageLoading: true,
                 page: null,
                 messages: []
             };
@@ -45,7 +47,7 @@ class ChatRoom extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.selectedUser === null || (this.props.selectedUser._id !== prevProps.selectedUser._id)) {
-          this.getMessages();
+            this.getMessages();
         }
     }
 
@@ -69,6 +71,7 @@ class ChatRoom extends React.Component {
 
     getMessages = async () => {
         try {
+            // this.setState({ messageLoading: true })
             const { userId, selectedUser, token} = this.props;
             const result = await ChatHttpServer.getMessages(userId, selectedUser._id, { page: this.state.page, limit: this.state.limit }, token);
             if (!result.error) {
@@ -81,32 +84,38 @@ class ChatRoom extends React.Component {
             } else {
                 alert("Unable to fetch messages")
             }
-            this.setState({ messageLoading: false });
         } catch (err) {
-            this.setState({ messageLoading: false });
+            console.log("an error occurred!!! \n", err)
+        } finally {
+            // this.setState({ messageLoading: false });
         }
     }
 
-    sendMessage = (e) => {
-        const { userId, selectedUser } = this.props;
+    handleKeyPress = (e) => {
+        const { selectedUser } = this.props;
         if (e.key === 'Enter') {
-            const message = e.target.value;
-            if (message === '' || message === undefined || message === null) {
-                alert("message can't be empty")
-            } else if (userId === '') {
-                
-            } else if (!selectedUser || selectedUser === undefined) {
-
-            } else {
-                this.sendAndUpdateMessages({
-                    fromUserId: userId,
-                    text: (message).trim(),
-                    toUserId: selectedUser._id,
-                });
-                e.target.value = '';
-            }
+            this.sendMessage();
         } else {
             ChatSocketServer.typingMessage(selectedUser._id);
+        }
+    }
+
+    sendMessage = () => {
+        const { userId, selectedUser } = this.props;
+        const message = this.state.messageInput;
+        if (message === '' || message === undefined || message === null) {
+            alert("message can't be empty")
+        } else if (userId === '') {
+            
+        } else if (!selectedUser || selectedUser === undefined) {
+
+        } else {
+            this.sendAndUpdateMessages({
+                fromUserId: userId,
+                text: (message).trim(),
+                toUserId: selectedUser._id,
+            });
+            this.setState({ messageInput: "" })
         }
     }
 
@@ -193,32 +202,43 @@ class ChatRoom extends React.Component {
 
     renderChatUI = () => {
         return (
-            <main className="chat-room" role="main">
-                { this.state.page === 0 ? this.renderStartChatUI() : <></> }
-                <ScrollContainer 
-                    scrollBoxRef={this.messagesBox}
-                    onScrollPageRequest={this.handleScrollPageRequest}
-                    onScrollPageResponse={this.handleScrollPageResult}
-                    onScrollBoxMount={this.onScrollBoxMount} 
-                    className="chat-bx" 
-                    contentClassName="content-bx">
-                    <>
-                    {
-                        parseInt(this.state.page) <= 1 || this.state.page === null ? (
-                            this.renderStartChatUI()
-                        ) : <></>
-                    }
-                    {
-                        this.renderMessages()
-                    }
-                    </>
-                </ScrollContainer>
-                <div className="bottom-bar">
-                    <span>{ emoji }</span>
-                    <input placeholder={`Send a message`} onKeyPress={this.sendMessage} />
-                    <span>{ plane }</span>
-                </div>
-            </main>
+            <ThemeContext.Consumer>
+                {
+                    ({ theme }) => (
+                        <main className="chat-room" role="main">
+                            { this.state.page === 0 ? this.renderStartChatUI() : <></> }
+                            <ScrollContainer 
+                                scrollBoxRef={this.messagesBox}
+                                onScrollPageRequest={this.handleScrollPageRequest}
+                                onScrollPageResponse={this.handleScrollPageResult}
+                                onScrollBoxMount={this.onScrollBoxMount} 
+                                className="chat-bx" 
+                                contentClassName="content-bx">
+                                <>
+                                {
+                                    parseInt(this.state.page) <= 1 || this.state.page === null ? (
+                                        this.renderStartChatUI()
+                                    ) : <></>
+                                }
+                                {
+                                    this.renderMessages()
+                                }
+                                </>
+                            </ScrollContainer>
+                            <div className="bottom-bar" style={{ width: this.messagesBox ? this.messagesBox.getBoundingClientRect().width : "100%" }}>
+                                <span>{ emoji }</span>
+                                <input 
+                                    placeholder={`Send a message`} 
+                                    value={this.state.messageInput} 
+                                    onChange={(e) => this.setState({ messageInput: e.target.value })} 
+                                    onKeyPress={this.handleKeyPress} 
+                                    style={{ background: theme.contrastColorFall, color: theme.textColor }} />
+                                <span onClick={this.sendMessage}>{ plane }</span>
+                            </div>
+                        </main>
+                    )
+                }
+            </ThemeContext.Consumer>
         )
     }
 
@@ -252,8 +272,9 @@ class ChatRoom extends React.Component {
 }
 
 const ChatBox = ({ message, isAuth }) => {
+    const { state } = useContext(ThemeContext.MyThemeContext);
     return (
-        <div className={`chat-row ${message.username === "admin" ? "admin" : isAuth ? "auth" : ""}`}>
+        <div className={`chat-row ${message.username === "admin" ? "admin" : isAuth ? "auth" : ""} ${state}`}>
             { 
                 message.username !== "admin" && !isAuth ? <div className="chat-auth">{ message.username }</div> : ""
             }

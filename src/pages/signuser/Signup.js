@@ -4,7 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 import Spinner from '../../components/spinner/Spinner';
 import AuthHelper from '../../helpers/AuthHelper';
 import ChatHttpServer from '../../helpers/ChatHttpServer';
-import "../../styles/form.css";
+import "./form.css";
 import logo from "../../res/logo.svg";
 import ThemeContext from '../../contexts/themeContext';
 

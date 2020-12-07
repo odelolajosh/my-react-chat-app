@@ -4,7 +4,7 @@ import {  } from 'react'
 import './App.css';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
-import Home from './pages/Home';
+import Main from './pages/main/Main';
 import Join from './pages/join/Join';
 import Login from './pages/signuser/Login';
 import Signup from './pages/signuser/Signup';
@@ -28,12 +28,12 @@ class App extends Component {
     return (
       <ThemeContext.Consumer>
       {
-        theme => (
-          <div className={`app-body ${theme}`}>
+        ({ theme }) => (
+          <div className={`app-body`} style={{ background: theme.backgroundColor, color: theme.textColor }}>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-              <Route path="/" exact><Redirect to="/chat" /></Route>
-              <PrivateRoute path="/chat" component={Home}  />
+              <Route path="/" exact><Redirect to="/in"/></Route>
+              <PrivateRoute path="/in" component={Main}  />
               <Route path="/join" component={Join}  />
               <PublicRoute path="/login" component={Login} />
               <PublicRoute path="/signup" component={Signup} />

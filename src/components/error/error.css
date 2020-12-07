@@ -10,10 +10,19 @@
     cursor: pointer;
 }
 
+.error-fullpage * { user-select: none }
+
+.error-fullpage img {
+    width: 120px;
+    max-width: calc(100vw - 30px);
+}
+
 .error-fullpage .error {
-    font-size: calc(3vmin + 10px);
+    font-size: calc(1.5vmax + 15px);
+    text-transform: capitalize;
     color: var(--base-red);
-    margin: 1rem 0;
+    margin: .5rem 0;
+    margin-top: 3rem;
     animation-name: keyframes1;
     animation-iteration-count: 1;
     animation-timing-function: cubic-bezier(.71,.55,.62,1.57);
@@ -33,5 +42,5 @@
 
 .error-fullpage small {
     color: var(--base-white);
-    font-size: calc(2.3vmin + 3px);
+    font-size: calc(1.3vmin + 8px);
 }

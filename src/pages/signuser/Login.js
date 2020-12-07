@@ -5,7 +5,7 @@ import Spinner from '../../components/spinner/Spinner';
 import ThemeContext from '../../contexts/themeContext';
 import AuthHelper from '../../helpers/AuthHelper';
 import ChatHttpServer from '../../helpers/ChatHttpServer';
-import "../../styles/form.css";
+import "./form.css";
 import logo from "../../res/logo.svg";
 
 const Login = (props) => {
@@ -27,13 +27,13 @@ const Login = (props) => {
     return (
         <ThemeContext.Consumer>
         {
-            theme => (
-                <main className={`${theme} form-page`}>
+            ({ theme }) => (
+                <main className={`form-page`} style={{ background: theme.backgroundColor, color: theme.textColor }}>
                     <form onSubmit={login}>
-                        <h2> <img src={logo} alt="logo" />   YouChat </h2>
+                        <h2> <img src={logo} alt="logo" /> YouChat </h2>
                         <h3>{ props.location.state ? "Yeah! You have to login" : "Welcome Back!" } <span role="img" aria-label="cool">😎</span></h3>
-                        <input placeholder="Your Username" value={name} type="name" onChange={(e) => setName(e.target.value)} />
-                        <input placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
+                        <input placeholder="Your Username" value={name} type="name" onChange={(e) => setName(e.target.value)} style={{ color: theme.textColor }} />
+                        <input placeholder="Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} style={{ color: theme.textColor }} />
                         { error ? <div className="error">{ error }</div> : '' }
                         <div>
                             <button type="submit" disabled={!(password.trim().length > 0 && name.trim().length > 0)}>

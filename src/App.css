@@ -22,14 +22,6 @@ body .app-body {
   position: relative;
   scroll-behavior: smooth;
   margin: 0;
-}
-
-body .app-body.day {
-  background-color: #ffffff;
-  color: var(--text-dark);
-}
-
-body .app-body.night {
   background-color: var(--base-dark);
   color: var(--text-white);
 }

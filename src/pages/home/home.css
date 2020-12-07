@@ -3,16 +3,22 @@
     display: flex;
 }
 
-.home-page .chat-list {
-    width: 350px;
-    max-width: calc(100% - 10px);
+.home-page .app-aside {
+    width: 400px;
+    max-width: 100vw;
     flex-shrink: 0;
     z-index: 101;
 }
 
 @media (max-width: 800px) {
-    .home-page .chat-list {
-        width: 300px;
+    .home-page .app-aside {
+        width: 400px;
+    }
+}
+
+@media (max-width: 350px) {
+    .home-page .app-aside {
+        width: 100vw;
     }
 }
 
@@ -169,7 +175,7 @@
 .no-chat-select-bx img {
     max-width: calc(100% - 3rem);
     max-height: calc(100% - 4rem);
-    width: 400px;
+    width: 300px;
 }
 
 .no-chat-select-bx h4 {

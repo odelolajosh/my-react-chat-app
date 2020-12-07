@@ -1,25 +1,105 @@
 
 
-aside.chat-list {
-    position: relative;
-    background: var(--base-contrast-fall);
+.app-aside {
     height: 100vh;
-    box-shadow: 3px 0 5px #ffffff07;
+    position: relative;
     z-index: 100;
-    color: var(--base-white);
     transition: all ease-in-out 300ms;
+    display: flex;
+    flex-flow: row nowrap;
 }
 
-aside.chat-list.float {
+.app-aside.float {
     position: fixed;
     left: 0;
     top: 0;
 }
 
-aside.chat-list.hide {
+.app-aside.hide {
     width: 0px;
     overflow-x: hidden;
-    transform: translateX(-100px);
+    transform: translateX(-100%);
+}
+
+.app-aside .auth-box {
+    position: absolute;
+    bottom: .5rem;
+    left: 0px;
+    width: calc(100% - 1rem);
+    padding: .3rem .5rem;
+    box-sizing: border-box;
+
+    margin: .5rem;
+    padding: .3rem .5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.app-aside .auth-box .auth-img {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    margin-right: 1rem;
+    position: relative;
+}
+
+.app-aside .nav-aside {
+    width: 70px;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+
+    padding-top: 1rem;
+    padding-bottom: calc(70px + 1rem);
+}
+
+.nav-aside .header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+.nav-aside .header img {
+    width: 30px;
+    height: 30px;
+}
+
+.nav-aside .nav-links,
+.nav-aside .nav-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-aside .nav-links span,
+.nav-aside .nav-sub span {
+    display: block;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.nav-aside .nav-links span {
+    margin: 1rem 0;
+}
+
+.nav-aside .nav-links span:hover svg,
+.nav-aside .nav-sub span:hover svg {
+    fill: var(--base-color)
+}
+
+aside.chat-list {
+    flex: 1;
+    background: var(--base-contrast-fall);
+    box-shadow: 3px 0 5px #ffffff07;
+    color: var(--base-white);
+
+    padding-bottom: 70px;
 }
 
 aside.chat-list .aside-top {
@@ -70,6 +150,7 @@ aside.chat-list .aside-top .search-pane input {
     background-color: var(--base-contrast-fade);
     outline: none;
     color: white;
+    font-size: 15px;
 }
 
 aside.chat-list .aside-top .search-pane span {
@@ -126,7 +207,11 @@ aside.chat-list ul li {
 }
 
 aside.chat-list ul li:hover {
-    background: var(--base-contrast-fade);
+    background: var(--base-dark-contrast-fade);
+}
+
+aside.chat-list ul li.day:hover {
+    background: var(--base-light-contrast-fade);
 }
 
 aside.chat-list ul li.active,

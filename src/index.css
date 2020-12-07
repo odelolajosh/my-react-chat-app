@@ -3,16 +3,22 @@
   --base-color-dark: #4339b3;
   --base-color-fade: rgba(147, 138, 243, .38);
 
+  --dark-background: #292929; /* #302f38 */
+  --light-background: #f9f9f9;
+
   /* Contrast color */
   --base-contrast: rgba(171, 171, 173, 0.2);
   --base-contrast-op2: rgba(171, 171, 173, 0.4);
 
-  /* Dark Color */
-  --base-dark: #302f38; /* #282733 */
-  /* --base-contrast: #ffffff11; */
-  --base-contrast-mid: #ffffff28;
-  --base-contrast-fall: #27272b;
-  --base-contrast-fade: #ffffff07;
+  --base-dark-contrast-mid: #ffffff28;
+  --base-dark-contrast-fall: #313131; /* #27272b */
+  --base-dark-contrast-fade: #ffffff07;
+
+  --base-light-contrast-mid: #ffffff28;
+  --base-light-contrast-fall: #e2e2e2;
+  --base-light-contrast-fade: #27272b15;
+
+
   --base-white: #ababad;
   --base-grey: #77777e;
   --base-red: #d6471b;
@@ -21,6 +27,9 @@
   /* Text color */
   --text-black: #55555b;
   --text-white: #dedede;
+
+  --text-black-contrast: #ababad;
+  --text-white-contrast: #757577;
 
   --top-bar-height: 56px;
 }

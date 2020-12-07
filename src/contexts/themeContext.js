@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-const { Consumer, Provider } = React.createContext();
+import { themeMap } from '../helpers/themeHelper';
+const MyThemeContext = React.createContext();
 
 class ThemeContextProvider extends Component {
 
@@ -22,14 +23,20 @@ class ThemeContextProvider extends Component {
         this.setState(prevState => {
             const theme = prevState.theme === 'day' ? 'night' : 'day';
             window.localStorage.setItem(this.USER_THEME_PREFERENCE, theme);
-            return { theme }
+            console.log("toggle " + prevState.theme + " ", theme);
+            return { theme: 'day' }
         })
     }
+    
     render() {
-        return <Provider value={this.state.theme}>{ this.props.children }</Provider>
+        return <MyThemeContext.Provider value={{
+            theme: themeMap(this.state.theme),
+            state: this.state.theme,
+            toggleTheme: this.toggleTheme
+        }}>{ this.props.children }</MyThemeContext.Provider>
     }
 }
 
-const ThemeContext = { Provider: ThemeContextProvider , Consumer }
+const ThemeContext = { Provider: ThemeContextProvider , Consumer: MyThemeContext.Consumer, MyThemeContext }
 
 export default ThemeContext;

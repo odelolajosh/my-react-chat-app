@@ -3,15 +3,16 @@
 class ErrorHandler {
     FAILED_TO_FETCH = "failed to fetch";
 
-    AN_ERROR_OCCURRED = "An Error Occurred";
-    POOR_INTERNET_CONNECTION = "Poor Internet Connection";
-    UNAUTHENTICATED_USER = "You have to Login";
-    USER_NOT_FOUND = "User not found";
+    AN_ERROR_OCCURRED = "an error occurred";
+    POOR_INTERNET_CONNECTION = "poor internet connection";
+    UNAUTHENTICATED_USER = "you have to login";
+    USER_NOT_FOUND = "user not found";
 
     checkErrorBool = (err) => err && err.message !== null;
 
     getErrorRemark(err) {
         err = this.normalizeError(err);
+        console.log(err.message)
         switch (err.message) {
             case this.FAILED_TO_FETCH:
                 return this.POOR_INTERNET_CONNECTION;
