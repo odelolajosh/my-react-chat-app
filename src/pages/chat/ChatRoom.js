@@ -246,6 +246,7 @@ class ChatRoom extends React.Component {
         return (
             <div className="no-chat-select-bx">
                 <img src={ noUserSelected } alt="No Selected User" />
+                <h4>Select A Chat</h4>
             </div>
         )
     }

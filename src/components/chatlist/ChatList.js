@@ -2,7 +2,7 @@ import React, { Component, useContext } from 'react';
 import { connect } from 'react-redux';
 import ThemeContext from '../../contexts/themeContext';
 import ChatSocketServer from '../../helpers/ChatSocketServer';
-import { chat, cog, contact, friends, group, moon, search, sun, times } from '../../res/icon';
+import { chat, cog, contact, group, moon, search, sun, times } from '../../res/icon';
 import logoSvg from '../../res/logo.svg';
 // import { AuthProfile } from '../user/AuthProfile';
 import './chatlist.css';
@@ -32,7 +32,6 @@ class ChatList extends Component {
             // for the chat
             selectedUserId: null,
             chatListUsers: null,
-            // typing: {},
 
             searchTerm: ''
         }
@@ -41,9 +40,6 @@ class ChatList extends Component {
     componentDidMount() {
         ChatSocketServer.getChatList(this.props.userId);
         ChatSocketServer.eventEmitter.on('chat-list-response', this.renderChatList)
-
-        // ChatSocketServer.receiveTypingMessage();
-        // ChatSocketServer.eventEmitter.on('typing-message-response', this.addTypingUser)
     }
 
     componentWillUnmount() {
@@ -54,24 +50,6 @@ class ChatList extends Component {
         this.setState({ selectedUserId: user._id });
         this.props.updateSelectedUser(user)
     }
-
-    /* addTypingUser = ({ userId }) => {
-        if (this.state.typing[userId]) {
-            window.clearTimeout(this.state.typing[userId])
-        }
-        const newTyping = this.state.typing;
-        newTyping[userId] = window.setTimeout(() => this.typingTimeout(userId), 3000);
-        this.setState({ typing: newTyping })
-    } */
-
-    /* typingTimeout(userId) {
-        if (this.state.typing[userId]) {
-            window.clearTimeout(this.state.typing[userId])
-            const newTyping = this.state.typing;
-            newTyping[userId] = null;
-            this.setState({ typing: newTyping })
-        }
-    } */
 
     searchKey = (e) => {
         this.setState({ searchTerm: e.target.value })

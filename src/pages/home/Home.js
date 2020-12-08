@@ -5,14 +5,12 @@ import './home.css';
 import ChatRoom from '../chat/ChatRoom';
 import ChatSocketServer from '../../helpers/ChatSocketServer';
 import { connect } from 'react-redux';
-import { leftCaret } from '../../res/icon';
+import { leftCaret, noWifi } from '../../res/icon';
 import ErrorFullPage from '../../components/error';
 import SpinnerFullPage from '../../components/spinner';
 import ChatHttpServer from '../../helpers/ChatHttpServer';
 import AuthHelper from '../../helpers/AuthHelper';
-import noWifi from '../../res/no-wifi.svg';
 import ThemeContext from '../../contexts/themeContext';
-import LogoKit from '../../components/LogoKit';
 
 
 class Home extends React.Component {
@@ -168,7 +166,7 @@ class Home extends React.Component {
                                 <div className="top-bar" style={{ background: theme.backgroundColor, color: theme.textColor, fill: theme.textColor, boxShadow: `0 3px 5px ${theme.contrastColorFade}` }}>
                                     { responsiveKit.isMobileViewPort ? <span className="toggle-bar" onClick={responsiveKit.switchToggle}>{ leftCaret }</span> : <></> }
                                     <div>
-                                        <span>{ this.state.selectedUser ? this.state.selectedUser.username : <LogoKit /> }</span>
+                                        <span>{ this.state.selectedUser ? this.state.selectedUser.username : "" }</span>
                                     </div>
                                 </div>
                                 <ChatRoom selectedUser={this.state.selectedUser} typing={this.state.typing} { ...responsiveKit } ></ChatRoom>

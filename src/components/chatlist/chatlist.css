@@ -265,6 +265,16 @@ aside.chat-list .alert.visibility-hidden {
     display: none;
 }
 
+aside.chat-list .alert {
+    padding: .3rem .5rem;
+    margin: .5rem;
+}
+
+aside.chat-list .alert.alert-info {
+    background-color: teal;
+    color: white;
+}
+
 aside.chat-list .aside-bottom {
     position: absolute;
     bottom: 0;
